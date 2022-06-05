@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="description" name="description">
+  <meta name="google" content="notranslate" />
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="./static/assets/icon.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <title>Shakhzod's blog</title>
+
+<link href="./static/main.3f6952e4.css" rel="stylesheet"></head>
+
+<body class="">
+<div id="site-border-left"></div>
+<div id="site-border-right"></div>
+<div id="site-border-top"></div>
+<div id="site-border-bottom"></div>
+<!-- Add your content of header -->
+<header>
+  <nav class="navbar  navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <script
+        type="text/javascript"
+        src="{{ url_for('static', filename='index.js')}}"
+      ></script>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav ">
+          <li><a href="./index.html" title="" style="color:rgb(255, 255, 255)">01 : Home</a></li>
+          <li><a href="https://github.com/shushukurov" style="color:rgb(255, 255, 255)">02 : Projects  <i class="fa fa-github"></i></a></li>
+          <li><a href="./articles.html" title="" style="color:rgb(255, 255, 255)">03 : Essays</a></li>
+          <li><a href="./books.html" title="" style="color:rgb(255, 255, 255)">04 : Bookshelf</a></li>
+          <li><a href="./about.html" title="" style="color:rgb(255, 255, 255)">05 : About me</a></li>
+
+          {% if auth %}
+          <li><a href="/admin" title="">Admin mode</a></li>
+          {% endif %}
+        </ul>
+        <!-- For loop logic of jinja template -->
+
+
+
+      </div>
+    </div>
+  </nav>
+  
+</header>
+
+<!-- Add your site or app content here -->
+  <div class="hero-full-container background-image-container white-text-container" style="background-image: url('./static/assets/images/mars.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="hero-full-wrapper">
+            <div class="text-content">
+              <h1>Hey, I'm Shakhzod<br>
+                <span id="typed-strings">
+                  <span>Data Scientist</span>
+                  <span>Explorer</span>
+                  <span>Human being</span>
+                </span>
+                <span id="typed"></span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!--Essays-->
+<div class="section-container">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-8 col-sm-offset-2 section-container-spacer">
+        <div class="text-center">
+          <h1 class="h2">Essays</h1>
+          <P></P>
+          <h4>Personal reflections</h4>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+            <div class="row">
+                  {% for post in posts %}
+                  {% if loop.index is divisibleby(4) %}
+                </div>
+                <div class="row">
+                  <div class="text-center">
+                    
+                    <a href="/articles.html" title="" class="btn btn-default">More Essays</a>
+                  </div>
+                  
+                
+                {% else %}
+                <div class="col-sm-4">
+                  <a href="/article/{{post.id}}" title="" class="black-image-project-hover">
+                    <img src="./static/assets/images/test1.jpeg" alt="" class="img-responsive">
+                  </a>
+                  <div class="card-container card-container-lg" >
+                    <h4>{{post.name}}</h4>
+                    <p> {{ post.date_created.strftime('%Y-%m-%d') }}</p>
+                   
+                    
+                  </div>
+                </div>
+                {% endif %}
+                  {% endfor %}
+                </div>
+    </div>
+    </div>
+  </div>
+</div>
+<!--Essays-->
+
+
+
+<!--Books-->
+
+<div class="section-container">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-8 col-sm-offset-2 section-container-spacer">
+        <div class="text-center">
+          <h1 class="h2">Bookshelf</h1>
+          <P></P>
+          <h4>Recommendations</h4>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          {% for book in books %}
+          {% if loop.index is divisibleby(4) %}
+        </div>
+          <div class="row">
+            <div class="text-center">
+              <a href="/books.html" title="" class="btn btn-default">More books</a>
+            </div>
+        {% else %}
+        <div class="col-sm-4">
+          <a href="{{book.link}}" title="" class="black-image-project-hover">
+            <img src="./static/assets/images/work03-hover.jpg" alt="" class="img-responsive">
+          </a>
+          <div class="card-container card-container-lg">
+            <h4>{{book.name}}</h4>
+            <h4>By: {{book.author}}</h4>
+            <p>{{book.info}}<p>
+          </div>
+        </div>
+        {% endif %}
+          {% endfor %}
+        </div>
+        <!--/carousel-inner-->
+
+
+    <!--/myCarousel-->
+    </div>
+
+
+
+    </div>
+  </div>
+</div>
+<!--Books-->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+     type();
+     movingBackgroundImage();
+  });
+</script>
+
+<script>$(document).ready(function(){
+  $("#myCarousel3").carousel();
+    if ( $(window).width() < 640 ) {
+       $('.col-sm-6').unwrap().addClass('item');
+       $('.col-sm-6:first').addClass('active');
+    }
+});</script>
+
+
+<script type="text/javascript" src="./static/main.70a66962.js"></script></body>
+
+
+</html>

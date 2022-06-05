@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+    <h1 align="center">Add a Book</h1>
+    
+    <form method="POST">
+        <h2 align="center">Name</h2>
+      <textarea name="name" id="name" class="form-control"></textarea>
+      <br />
+      <h2 align="center">Info</h2>
+      <textarea name="info" id="info" class="form-control"></textarea>
+      <br />
+      <h2 align="center">Author</h2>
+      <textarea name="author" id="author" class="form-control"></textarea>
+      <br />
+      <h2 align="center">Link</h2>
+      <textarea name="link" id="link" class="form-control"></textarea>
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-lg btn-primary">Add</button>
+      </div>
+    </form>
+    <br />
+    <div align="center">
+      <a href="/"
+        ><button type="button" class="btn btn-lg btn-secondary">Back</button></a
+      >
+    </div>
+    {% endblock %}
+    
+
+
+    

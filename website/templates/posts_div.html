@@ -1,0 +1,162 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">{% block header %}Posts{% endblock %}</h1>
+<div id="posts">
+  {% for post in posts %}
+  <div class="card border-dark">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <a><b>{{post.name}}</b></a>
+      <div>
+        <span id="likes-count-{{post.id}}">
+        {{ post.likes|length }}</span> 
+        {% if user.id in post.likes|map(attribute="author")|list %}
+        <i
+          class="fas fa-thumbs-up"
+          id="like-button-{{post.id}}"
+          onclick="like({{post.id}})"
+        ></i>
+        {% else %}
+        <i
+          class="far fa-thumbs-up"
+          id="like-button-{{post.id}}"
+          onclick="like({{post.id}})"
+        ></i>
+        {% endif %} {% if user.id == post.author %}
+        <div class="btn-group">
+
+              <a href="/delete-post/{{post.id}}" class="dropdown-item"
+                >Delete Post</a
+              >
+
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="card-text">{{post.text}}</div>
+      <br />
+      
+        <div class="card">
+          <div class="card-body" id="comments-expanded-{{post.id}}">
+            {% for comment in post.comments %}
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <a href="/posts/{{comment.user.username}}"
+                  >{{comment.author}}</a
+                >: {{comment.text}}
+              </div>
+              <div>
+                <small class="text-muted"> {{comment.date_created}}</small>
+                {% if user.id == comment.author or user.id == post.author %}
+                <div class="btn-group">
+                      <a
+                        href="/delete-comment/{{comment.id}}"
+                        class="dropdown-item"
+                        >Delete</a
+                      >
+                
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      
+      
+      <form
+        class="input-group mb-3"
+        method="POST"
+        action="/create-comment/{{post.id}}"
+      >
+      <input
+          type="username"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="username something!"
+        />
+        <div>
+        <input
+          type="text"
+          id="text"
+          name="text"
+          class="form-control"
+          placeholder="Comment something!"
+        />
+      </div>
+        <button type="submit" class="btn btn-primary">Comment</button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">{{post.date_created}}</div>
+  </div>
+  <br/ > {% endfor %}
+</div>
+
+
+<div align="center">
+  <a href="/create-post"
+    ><button type="button" class="btn btn-primary btn-lg">
+      Create a Post
+    </button></a
+  >
+</div>
+
+
+
+
+
+
+
+
+
+
+<h1 align="center">Books</h1>
+<div id="posts">
+  {% for book in books %}
+  <div class="card border-dark">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <a><b>{{book.name}}</b></a>
+
+      
+        <div class="btn-group">
+
+              <a href="/delete-post/{{book.id}}" class="dropdown-item"
+                >Delete Post</a
+              >
+
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    <div class="card-body">
+      <div class="card-text">{{book.info}}</div>
+      <br />
+      <div class="card-body">
+        <div class="card-text">By: {{book.author}}</div>
+        <br />
+      </div>
+      
+
+    </div>
+    <div class="card-footer text-muted">{{book.date_created}}</div>
+  </div>
+  <br/ > {% endfor %}
+</div>
+
+
+<div align="center">
+  <a href="/add_book"
+    ><button type="button" class="btn btn-primary btn-lg">
+      Add Book
+    </button></a
+  >
+</div>
+
+{% block footer %}
+
+{% endblock %} {% endblock %}
